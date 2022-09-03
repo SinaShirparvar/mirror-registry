@@ -1,0 +1,37 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: registry-configmap
+  namespace: registry
+data:
+  config.yml: |
+    version: 0.1
+    log:
+      fields:
+        service: registry
+    http:
+      addr: :5000
+      headers:
+        X-Content-Type-Options: [nosniff]
+    storage:
+      s3:
+        accesskey: "ACCESS_KEY"
+        secretkey: "SECRET_KEY"
+        region: "REGION"
+        regionendpoint: END_POINT
+        bucket: "BUCKET_NAME"
+        secure: "true"
+        v4auth: true
+        chunksize: 5242880
+        multipartcopychunksize: 33554432
+        multipartcopymaxconcurrency: 100
+        multipartcopythresholdsize: 33554432
+        rootdirectory: /s3/object/images/
+    proxy:
+      remoteurl: https://registry-1.docker.io
+      username: <DockerHub_Account>
+      password: <Password>
+    validation:
+      disabled: true
+      
